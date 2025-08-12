@@ -1,8 +1,9 @@
-import java.util.ArrayList; // Essa biblioteca é utilizada nas seguintes questões: 1, 3
+// import java.util.ArrayList; // Essa biblioteca é utilizada nas seguintes questões: 1, 3, 4, 5
 import java.util.Scanner;
 
 public class App {
     static Scanner sc = new Scanner(System.in);
+
     // 1 - Sistema que exibe um menu no terminal para o usuário escolher uma das opções
     /*
         static ArrayList<Integer> vet = new ArrayList<>();
@@ -174,5 +175,103 @@ public class App {
         calculaNota();
     }
     */
-    // 
+    // 4 - Programa que embaralha uma string, de forma que a string se separe em blocos de 5 caracteres, sendo as novas palavras obtidas lendo-se cada coluna resultante, separadas por asteriscos
+    // 5 - Continuando o 4, acrescimo de uma função parar descriptografar uma mensagem segundo as mesmas regras da criptografia
+    /*     
+    static ArrayList<ArrayList<Character>> matriz = new ArrayList<>();
+    public static String mensagemCriptografada(String msg) {
+        int tam = msg.length();
+        if (tam%5 != 0) {
+            tam += 5 - (tam%5);
+        }
+        int linhas = tam/5;
+        int pos = 0;
+        for (int i = 0; i < linhas; i++) {
+            matriz.add(new ArrayList<>());
+            for (int j = 0; j < 5; j++) {
+                if (pos < msg.length()) {
+                    matriz.get(i).add(msg.charAt(pos));
+                } else {
+                    matriz.get(i).add(' '); 
+                }
+                pos++;
+            }
+        }
+        StringBuilder resultado = new StringBuilder();
+        for (int j = 0; j < 5; j++){
+            for (int i = 0; i < linhas; i++){
+                resultado.append(matriz.get(i).get(j));
+            }
+            resultado.append("*");
+        }
+
+        return resultado.toString();
+    }
+    public static String descriptografarMensagem(String msg){
+        int tam = msg.length();
+        if (tam%5 != 0) {
+            tam += 5 - (tam%5);
+        }
+        int linhas = tam/5;
+        int pos = 0;
+        for (int i = 0; i < 5; i++) {
+            matriz.add(new ArrayList<>());
+            for (int j = 0; j < linhas; j++) {
+                matriz.get(i).add(msg.charAt(pos));
+                pos++;
+            }
+        }
+        StringBuilder resultado = new StringBuilder();
+        for (int j = 0; j < linhas - 1; j++){
+            for (int i = 0; i < 5; i++){
+                resultado.append(matriz.get(i).get(j));
+            }
+        }
+
+        return resultado.toString();
+    } 
+    public static void main(String[] args) {
+        System.out.println("Digite uma mensagem:");
+        String msg = sc.nextLine();
+        System.out.println("1 - Criptografar mensagem");
+        System.out.println("2 - Descriptografar mensagem");
+        int resposta = sc.nextInt();
+        switch (resposta) {
+            case 1:
+                System.out.println(mensagemCriptografada(msg));
+                break;
+            case 2:
+                System.out.println(descriptografarMensagem(msg));
+                break;
+        }
+    }
+*/
+    // 6 - Programa que verifica se a data no formato DD/MM/AAAA é váliado ou não, e retorna onde está o erro 
+    /* 
+    public static void main(String[] args) {
+        System.out.println("Informe a data no formato DD/MM/AAAA");
+        String data = sc.nextLine();
+        if (data.length() > 10 || data.length() < 10) {
+            System.out.println("Formato inválido");            
+        }else{
+            String[] armazenaData = data.split("/");
+
+            int dia = Integer.parseInt(armazenaData[0]);
+            int mes = Integer.parseInt(armazenaData[1]);
+            int ano = Integer.parseInt(armazenaData[2]);
+            
+            if (dia <= 0 || dia > 31) {
+                System.out.println("Dia inválido");
+            }
+
+            if(mes <= 0 || mes > 12){
+                System.out.println("Mes inválido");
+            }
+
+            if (ano <= 0) {
+                System.out.println("Ano inválido");
+            }
+        }
+    }
+    */
 }
