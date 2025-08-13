@@ -1,9 +1,8 @@
-// import java.util.ArrayList; // Essa biblioteca é utilizada nas seguintes questões: 1, 3, 4, 5
+// import java.util.ArrayList;
 import java.util.Scanner;
 
 public class App {
     static Scanner sc = new Scanner(System.in);
-
     // 1 - Sistema que exibe um menu no terminal para o usuário escolher uma das opções
     /*
         static ArrayList<Integer> vet = new ArrayList<>();
@@ -148,51 +147,43 @@ public class App {
         }
     */
     // 3 - Programa que lê as notas de um aluno, calcula e mostra na tela sua nota final (em 100 pontos), formatada com duas casas decimais 
-    /*
-    static ArrayList<Float> vet = new ArrayList<>();
-    public static void calculaNota() {
-        float trabalho = 0;
-        float provas = 0;
-        float listas = 0;
-        for (int i = 0; i < vet.size(); i++) {
+    /* 
+    public static void calculaNota(double[] vet) {
+        double trabalho = 0;
+        double provas = 0;
+        double listas = 0;
+        for (int i = 0; i < vet.length; i++) {
              if(i<4){
-                listas += vet.get(i);
+                listas += vet[i];
             }else if(i<6) {
-                provas += vet.get(i);
+                provas += vet[i];
             }else{
-                trabalho = vet.get(i);
+                trabalho = vet[i];
             }
         }
-        float notaFinal = (listas/2) + ((provas*3)/10) + trabalho;
+        double notaFinal = (listas/2) + ((provas*3)/10) + trabalho;
         System.out.printf("NOTA FINAL: %.2f", notaFinal);
     }
     public static void main(String[] args) {
+        double[] vet = new double[7];
         for (int i = 0; i < 7; i++) {
             System.out.println("Insira a nota");
-            float nota = sc.nextFloat();
-            vet.add(nota);
+            double nota = sc.nextDouble();
+            vet[i] = nota;
         }
-        calculaNota();
+        calculaNota(vet);
     }
     */
     // 4 - Programa que embaralha uma string, de forma que a string se separe em blocos de 5 caracteres, sendo as novas palavras obtidas lendo-se cada coluna resultante, separadas por asteriscos
     // 5 - Continuando o 4, acrescimo de uma função parar descriptografar uma mensagem segundo as mesmas regras da criptografia
-    /*     
-    static ArrayList<ArrayList<Character>> matriz = new ArrayList<>();
-    public static String mensagemCriptografada(String msg) {
-        int tam = msg.length();
-        if (tam%5 != 0) {
-            tam += 5 - (tam%5);
-        }
-        int linhas = tam/5;
-        int pos = 0;
+    /* 
+    public static String mensagemCriptografada(String msg, int linhas, int pos, char[][] matriz) {
         for (int i = 0; i < linhas; i++) {
-            matriz.add(new ArrayList<>());
             for (int j = 0; j < 5; j++) {
                 if (pos < msg.length()) {
-                    matriz.get(i).add(msg.charAt(pos));
+                    matriz[i][j] = msg.charAt(pos);
                 } else {
-                    matriz.get(i).add(' '); 
+                    matriz[i][j] =' '; 
                 }
                 pos++;
             }
@@ -200,31 +191,24 @@ public class App {
         StringBuilder resultado = new StringBuilder();
         for (int j = 0; j < 5; j++){
             for (int i = 0; i < linhas; i++){
-                resultado.append(matriz.get(i).get(j));
+                resultado.append(matriz[i][j]);
             }
             resultado.append("*");
         }
 
         return resultado.toString();
     }
-    public static String descriptografarMensagem(String msg){
-        int tam = msg.length();
-        if (tam%5 != 0) {
-            tam += 5 - (tam%5);
-        }
-        int linhas = tam/5;
-        int pos = 0;
+    public static String descriptografarMensagem(String msg, int linhas, int pos, char[][] matriz){
         for (int i = 0; i < 5; i++) {
-            matriz.add(new ArrayList<>());
             for (int j = 0; j < linhas; j++) {
-                matriz.get(i).add(msg.charAt(pos));
+                matriz[i][j] = msg.charAt(pos);
                 pos++;
             }
         }
         StringBuilder resultado = new StringBuilder();
         for (int j = 0; j < linhas - 1; j++){
             for (int i = 0; i < 5; i++){
-                resultado.append(matriz.get(i).get(j));
+                resultado.append(matriz[i][j]);
             }
         }
 
@@ -233,19 +217,28 @@ public class App {
     public static void main(String[] args) {
         System.out.println("Digite uma mensagem:");
         String msg = sc.nextLine();
+        int tam = msg.length();
+        if (tam%5 != 0) {
+            tam += 5 - (tam%5);
+        }
+        int linhas = tam/5;
+        char matriz[][] = new char[linhas][5];
+        int pos = 0;
         System.out.println("1 - Criptografar mensagem");
         System.out.println("2 - Descriptografar mensagem");
         int resposta = sc.nextInt();
         switch (resposta) {
             case 1:
-                System.out.println(mensagemCriptografada(msg));
+            String criptografado = mensagemCriptografada(msg, linhas, pos, matriz);
+                System.out.println(criptografado);
                 break;
             case 2:
-                System.out.println(descriptografarMensagem(msg));
+                String descriptografado = descriptografarMensagem(msg, linhas, pos, matriz); 
+                System.out.println(descriptografado);
                 break;
         }
     }
-*/
+    */
     // 6 - Programa que verifica se a data no formato DD/MM/AAAA é váliado ou não, e retorna onde está o erro 
     /* 
     public static void main(String[] args) {
@@ -274,4 +267,5 @@ public class App {
         }
     }
     */
+    // 7 - Atualização dos exercicios de 4 a 6 para uso de arquivos, onde a primeira linha corresponde a quantidade de execuções de cada tarefa 
 }
