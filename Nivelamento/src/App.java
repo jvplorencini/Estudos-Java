@@ -1,8 +1,10 @@
 // import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class App {
-    static Scanner sc = new Scanner(System.in);
+    // static Scanner sc = new Scanner(System.in);
     // 1 - Sistema que exibe um menu no terminal para o usuário escolher uma das opções
     /*
         static ArrayList<Integer> vet = new ArrayList<>();
@@ -268,4 +270,121 @@ public class App {
     }
     */
     // 7 - Atualização dos exercicios de 4 a 6 para uso de arquivos, onde a primeira linha corresponde a quantidade de execuções de cada tarefa 
+     public static String mensagemCriptografada(String msg, int linhas, int pos, char[][] matriz) {
+        for (int i = 0; i < linhas; i++) {
+            for (int j = 0; j < 5; j++) {
+                if (pos < msg.length()) {
+                    matriz[i][j] = msg.charAt(pos);
+                } else {
+                    matriz[i][j] =' '; 
+                }
+                pos++;
+            }
+        }
+        StringBuilder resultado = new StringBuilder();
+        for (int j = 0; j < 5; j++){
+            for (int i = 0; i < linhas; i++){
+                resultado.append(matriz[i][j]);
+            }
+            resultado.append("*");
+        }
+
+        return resultado.toString();
+    }
+    public static String descriptografarMensagem(String msg, int linhas, int pos, char[][] matriz){
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < linhas; j++) {
+                matriz[i][j] = msg.charAt(pos);
+                pos++;
+            }
+        }
+        StringBuilder resultado = new StringBuilder();
+        for (int j = 0; j < linhas - 1; j++){
+            for (int i = 0; i < 5; i++){
+                resultado.append(matriz[i][j]);
+            }
+        }
+
+        return resultado.toString();
+    } 
+    public static void main(String[] args) {
+        try{
+            File arquivo = new File("C:(resto do camhino)\\criptografia.txt");
+            Scanner arqTxt = new Scanner(arquivo);
+            int qtd = Integer.parseInt(arqTxt.nextLine());
+
+            for (int i = 0; i < qtd; i++) {
+                String msg = arqTxt.nextLine();
+                int tam = msg.length();
+                if (tam%5 != 0) {
+                    tam += 5 - (tam%5);
+                }
+                int linhas = tam/5;
+                char matriz[][] = new char[linhas][5];
+                int pos = 0;
+                int resposta = Integer.parseInt(arqTxt.nextLine());
+                switch (resposta) {
+                    case 1:
+                        String criptografado = mensagemCriptografada(msg, linhas, pos, matriz);
+                        System.out.print("Mensagem criptografada: ");
+                        System.out.println(criptografado);
+                        break;
+                    case 2:
+                        String descriptografado = descriptografarMensagem(msg, linhas, pos, matriz); 
+                        System.out.print("Mensagem descriptografada: ");
+                        System.out.println(descriptografado);
+                        break;
+                }
+            }
+         arqTxt.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Arquivo não encontrado!");
+        }
+    }
+    /* 
+    public static void main(String[] args) {
+        try{
+            File arquivo = new File("C:(resto do caminho)\\data.txt");
+            Scanner arqTxt = new Scanner(arquivo);
+            int qtd = Integer.parseInt(arqTxt.nextLine());
+
+            for (int i = 0; i < qtd; i++) {
+                String data = arqTxt.nextLine();
+                if (data.length() > 10 || data.length() < 10) {
+                    System.out.println("Formato inválido");            
+                }else{
+                    String[] armazenaData = data.split("/");
+
+                    int dia = Integer.parseInt(armazenaData[0]);
+                    int mes = Integer.parseInt(armazenaData[1]);
+                    int ano = Integer.parseInt(armazenaData[2]);
+                    
+                    boolean valido = true;
+
+                    if (dia <= 0 || dia > 31) {
+                        System.out.println("Dia inválido");
+                        valido = false;
+                    }
+
+                    if(mes <= 0 || mes > 12){
+                        System.out.println("Mes inválido");
+                        valido = false;
+                    }
+
+                    if (ano <= 0) {
+                        System.out.println("Ano inválido");
+                        valido = false;
+                    }
+
+                    if (valido) {
+                            System.out.println(data + "Data válida!");
+                    }
+                }
+            }
+            arqTxt.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Arquivo não encontrado!");
+        }
+    }
+    */
 }
